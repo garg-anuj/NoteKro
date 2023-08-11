@@ -99,6 +99,7 @@ function editBtn(id) {
 
   document.querySelector('#update').addEventListener('click', (ele) => {
     data[id].name = Fname.value;
+    data[id].surName = Lname.value;
     localStorage.setItem("userData", JSON.stringify(data))
     show()
   })
