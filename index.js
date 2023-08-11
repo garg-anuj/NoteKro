@@ -3,6 +3,8 @@ let Lname = document.querySelector('#Lname')
 let clickBtn = document.querySelector('#submitbtn')
 // let form = document.querySelector('#form')
 
+let arrList = JSON.parse(localStorage.getItem("userData"));
+
 show()
 clickBtn.addEventListener('click', submitBtn)
 function createInput() { localStorage.removeItem("userData"); show() }
@@ -10,13 +12,13 @@ function createInput() { localStorage.removeItem("userData"); show() }
 
 function setLocalStorage() {
 
-  let data = JSON.parse(localStorage.getItem('userData'));
+  // let arrList = JSON.parse(localStorage.getItem('userData'));
   let showData = document.querySelector("#show");
   let nodeHtml = ''
 
 
-  if (data) {
-    data.map((ele, id) => {
+  if (arrList) {
+    arrList.map((ele, id) => {
       nodeHtml +=
         ` <div id="content">
                     <div><i class="fa-regular fa-eye"></i></div>
@@ -48,7 +50,7 @@ function setLocalStorage() {
 
 function submitBtn(e) {
   e.preventDefault()
-  let arr = JSON.parse(localStorage.getItem("userData")) //initalyy yeah null Rehta hai
+  // let arrList = JSON.parse(localStorage.getItem("userData")); //initalyy yeah null Rehta hai
   let arrData = {
     name: `${Fname.value}`,
     surName: `${Lname.value}`
@@ -58,17 +60,17 @@ function submitBtn(e) {
     console.log('fill the input')
 
   }
-  else if (arr === null) {
-    console.log('yea abhi null vlue hai')
-    let arr = [];
-    arr.push(arrData)
-    localStorage.setItem("userData", JSON.stringify(arr));
+  else if (arrList === null) {
+    // console.log('yea abhi null vlue hai')
+    let arrList = [];
+    arrList.push(arrData)
+    localStorage.setItem("userData", JSON.stringify(arrList));
     show()
   }
   else {
-    console.log('bhi null nhi hai');
-    arr.push(arrData)
-    localStorage.setItem("userData", JSON.stringify(arr));
+    // console.log('yeab abhi null nhi hai');
+    arrList.push(arrData)
+    localStorage.setItem("userData", JSON.stringify(arrList));
     show()
   }
 }
@@ -77,36 +79,49 @@ function submitBtn(e) {
 
 
 function delBtn(id) {
-  let data = JSON.parse(localStorage.getItem('userData'))
-  data.splice(id, 1)
-  console.log(data)
-  localStorage.setItem('userData', JSON.stringify(data))
+  // let arrList = JSON.parse(localStorage.getItem('userData'));
+  arrList.splice(id, 1)
+  console.log(arrList)
+  localStorage.setItem('userData', JSON.stringify(arrList))
   show()
 }
 
 
 function editBtn(id) {
  
-  let data = JSON.parse(localStorage.getItem('userData'))
-  Fname.value = data[id].name;
-  Lname.value = data[id].surName;
+  // let arrList = JSON.parse(localStorage.getItem('userData'))
+  console.log(id,arrList[id])
+  Fname.value = arrList[id].name;
+  Lname.value = arrList[id].surName;
   let newBtn = `<button id="update" >Edit</button>`//onClick='updBtn(${id})'
   //   console.log(form)
 
   if (!(document.querySelector('#update'))) {
     form.insertAdjacentHTML("beforeend", newBtn);
-  }
+  
 
   document.querySelector('#update').addEventListener('click', (ele) => {
-    data[id].name = Fname.value;
-    data[id].surName = Lname.value;
-    localStorage.setItem("userData", JSON.stringify(data))
+    console.log(Fname.value , Lname.value)
+    arrList[id].name = Fname.value;
+    arrList[id].surName = Lname.value;
+    console.log(id,arrList[id]);
+    
+    localStorage.setItem("userData", JSON.stringify(arrList))
+    console.log(arrList);
+    console.log("-----------------")
     show()
   })
 
 }
 
+};
+
+
+
+
 function show() { setLocalStorage(); }
+
+console.log(arrList)
 
 
 
