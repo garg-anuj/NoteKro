@@ -1,7 +1,6 @@
 let Fname = document.querySelector('#Fname')
 let Lname = document.querySelector('#Lname')
-let clickBtn = document.querySelector('#submitbtn')
-// let form = document.querySelector('#form')
+let clickBtn = document.querySelector('#submitbtn');
 
 let arrList = JSON.parse(localStorage.getItem("userData"));
 
@@ -10,9 +9,9 @@ clickBtn.addEventListener('click', submitBtn)
 function createInput() { localStorage.removeItem("userData"); show() }
 
 
+
 function setLocalStorage() {
 
-  // let arrList = JSON.parse(localStorage.getItem('userData'));
   let showData = document.querySelector("#show");
   let nodeHtml = ''
 
@@ -50,7 +49,7 @@ function setLocalStorage() {
 
 function submitBtn(e) {
   e.preventDefault()
-  // let arrList = JSON.parse(localStorage.getItem("userData")); //initalyy yeah null Rehta hai
+ //initalyy  arrList starting me yeah null Rehta hai
   let arrData = {
     name: `${Fname.value}`,
     surName: `${Lname.value}`
@@ -79,7 +78,6 @@ function submitBtn(e) {
 
 
 function delBtn(id) {
-  // let arrList = JSON.parse(localStorage.getItem('userData'));
   arrList.splice(id, 1)
   console.log(arrList)
   localStorage.setItem('userData', JSON.stringify(arrList))
@@ -88,27 +86,21 @@ function delBtn(id) {
 
 
 function editBtn(id) {
- 
-  // let arrList = JSON.parse(localStorage.getItem('userData'))
-  console.log(id,arrList[id])
+
   Fname.value = arrList[id].name;
   Lname.value = arrList[id].surName;
   let newBtn = `<button id="update" >Edit</button>`//onClick='updBtn(${id})'
-  //   console.log(form)
+
 
   if (!(document.querySelector('#update'))) {
     form.insertAdjacentHTML("beforeend", newBtn);
   
 
   document.querySelector('#update').addEventListener('click', (ele) => {
-    console.log(Fname.value , Lname.value)
     arrList[id].name = Fname.value;
-    arrList[id].surName = Lname.value;
-    console.log(id,arrList[id]);
-    
+    arrList[id].surName = Lname.value; 
     localStorage.setItem("userData", JSON.stringify(arrList))
-    console.log(arrList);
-    console.log("-----------------")
+
     show()
   })
 
@@ -116,12 +108,9 @@ function editBtn(id) {
 
 };
 
-
-
-
 function show() { setLocalStorage(); }
 
-console.log(arrList)
+
 
 
 
